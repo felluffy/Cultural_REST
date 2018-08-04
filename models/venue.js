@@ -22,6 +22,14 @@ const venueSchema = new mongoose.Schema({
         },
         message: '{VALUE} is not a valid phone number!',
         required: [true, 'User phone number required']
+    },
+    date: {
+        type: Date,
+        required: false
+    },
+    availability: {
+        type: Boolean,
+        required: false
     }
 });
 
@@ -36,7 +44,7 @@ function validateVenue(venue) {
   
     return Joi.validate(venue, schema);
 }
-
+    
 exports.venueSchema = venueSchema;
 exports.Venue = Venue;
 exports.validateVenue = validateVenue;
