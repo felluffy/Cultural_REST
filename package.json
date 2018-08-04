@@ -13,10 +13,12 @@
   "author": "Joy, Maria, Nasif, Shuvo",
   "license": "ISC",
   "dependencies": {
+    "email-validator": "^2.0.4",
     "express": "^4.16.3",
     "joi": "^13.5.2",
     "joi-objectid": "^2.0.0",
     "mongoose": "^5.0.2",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "validator": "^10.5.0"
   }
 }
