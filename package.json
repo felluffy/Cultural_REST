@@ -15,8 +15,10 @@
   "dependencies": {
     "email-validator": "^2.0.4",
     "express": "^4.16.3",
+    "google-libphonenumber": "^3.1.11",
     "joi": "^13.5.2",
     "joi-objectid": "^2.0.0",
+    "joi-phone-validator": "^1.0.0",
     "mongoose": "^5.0.2",
     "nodemon": "^1.18.3",
     "validator": "^10.5.0"
