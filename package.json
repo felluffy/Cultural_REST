@@ -17,6 +17,7 @@
     "express": "^4.16.3",
     "google-libphonenumber": "^3.1.11",
     "joi": "^13.5.2",
+    "joi-date-extensions": "^1.2.0",
     "joi-objectid": "^2.0.0",
     "joi-phone-validator": "^1.0.0",
     "mongoose": "^5.0.2",

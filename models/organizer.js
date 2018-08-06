@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-var { isEmail } = require('validator');
-var phoneValidator = require('joi-phone-validator');
+//var { isEmail } = require('validator');
+//var phoneValidator = require('joi-phone-validator');
 //const myCustomJoi = Joi.extend(require('joi-phone-number'));
 
 const organizerSchema = new mongoose.Schema({
