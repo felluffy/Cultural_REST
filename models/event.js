@@ -80,7 +80,7 @@ const eventSchema = new mongoose.Schema({
 const Event = mongoose.model('Event', eventSchema);
 
 function validateEvent(event) {
-    const schmea = {
+    const schema = {
         eventType: Joi.string().required(),
         eventName: Joi.string().required(),
         entry: Joi.string().required(),
