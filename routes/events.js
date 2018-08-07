@@ -52,4 +52,42 @@ router.get('/location/:location', async(req, res) => {
     res.send(events);
 });
 
+router.post('/', async (req, res) => {
+    const { error } = validateEvent(req.body);
+    if (error)
+        return res.status(400).send(error.details[0].message);
+
+    const venue = await Venue.findById(req.body.venueId)
+    if (!venue)
+        return res.status(400).send('Invalid venue or venue not in database');
+
+    const organizer = await Organizer.findById(req.body.organizerId);
+    if (!organizer)
+        return res.status(400).send('Invalid organzier or not in database');
+
+    let event = new Event({
+        eventType: req.body.eventType,
+        eventName: req.body.eventName,
+        entry: req.body.entry,
+        start: req.body.start,
+        end: req.body.end,
+        organizer: {
+            _id: organizer._id,
+            name: organizer.name,
+            email: organizer.email,
+            phone: organizer.phone
+        },
+        venue: {
+            _id: venue._id,
+            name: venue.name,
+            email: venue.email,
+            phone: venue.phone
+        }
+    });
+
+    event = await event.save();
+    res.send(event);
+});
+
+
 module.exports = router;
