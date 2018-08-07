@@ -61,5 +61,14 @@ router.put('/:id', authenticate.verifyUser ,async (req, res) => {
     res.send(organizer);
 });
 
+router.delete('/:id',authenticate.verifyUser  ,async (req, res) => {
+    const organizer = await Organizer.findByIdAndRemove(req.params.id);
+    if (!organizer)
+        return res.status(404).send('The organizer with the given ID was not found.');
+
+    res.send(organizer);
+});
+
+
 
 module.exports = router;
