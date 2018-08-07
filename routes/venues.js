@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { Venue, validateVenue } = require('../models/venue');
+var authenticate = require('../authenticate');
+
 
 // //endpoints
 router.get('/', async (req, res) => {
@@ -33,7 +35,7 @@ router.get('/:id', async (req, res) => {
     res.send(venue);
 });
 
-router.post('/', async (req, res) => {
+router.post('/',authenticate.verifyUser ,async (req, res) => {
     const { error } = validateVenue(req.body);
     
     if (error) {
@@ -54,7 +56,7 @@ router.post('/', async (req, res) => {
     res.send(venue);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id',authenticate.verifyUser ,async (req, res) => {
     const { error } = validateVenue(req.body);
     if (error)
         return res.status(400).send(error.details[0].message);
@@ -73,7 +75,7 @@ router.put('/:id', async (req, res) => {
     res.send(venue);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',authenticate.verifyUser ,async (req, res) => {
     const venue = await Venue.findByIdAndRemove(req.params.id);
     if (!venue)
         return res.status(404).send('The Venue with the given ID was not found.');
