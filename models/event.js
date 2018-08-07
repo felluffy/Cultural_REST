@@ -32,7 +32,7 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    end: { 
+    end: {
         type: Date,
         required: true
     },
@@ -76,7 +76,7 @@ const eventSchema = new mongoose.Schema({
         }),
         required: true
     },
-    
+
 });
 
 const Event = mongoose.model('Event', eventSchema);

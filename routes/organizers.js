@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { Organizer, validateOrganizer } = require('../models/organizer');
+var authenticate = require('../authenticate');
 //endpoints
 router.get('/', async (req, res) => {
     const organizers = await Organizer.find().sort('name');
@@ -22,7 +23,7 @@ router.get('/:id', async (req, res) => {
     res.send(organizer);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authenticate.verifyUser, async (req, res) => {
     const { error } = validateOrganizer(req.body);
     if (error) {
         var message = error.details[0].message;
@@ -42,6 +43,32 @@ router.post('/', async (req, res) => {
 
     res.send(organizer);
 });
+
+router.put('/:id', authenticate.verifyUser, async (req, res) => {
+    const { error } = validateOrganizer(req.body);
+    if (error)
+        return res.status(400).send(error.details[0].message);
+
+    const organizer = await Organizer.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body, email,
+        phone: req.body.phone
+    }, { new: true }); // to get the updated object 
+
+    if (!organizer)
+        return res.status(404).send('The organizer with the given ID was not found.');
+
+    res.send(organizer);
+});
+
+router.delete('/:id', authenticate.verifyUser, async (req, res) => {
+    const organizer = await Organizer.findByIdAndRemove(req.params.id);
+    if (!organizer)
+        return res.status(404).send('The organizer with the given ID was not found.');
+
+    res.send(organizer);
+});
+
 
 
 module.exports = router;

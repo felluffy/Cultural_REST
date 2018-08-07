@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { Venue, validateVenue } = require('../models/venue');
+var authenticate = require('../authenticate');
+
 
 // //endpoints
 router.get('/', async (req, res) => {
@@ -11,15 +13,15 @@ router.get('/', async (req, res) => {
 
 router.get('/date/:date', async (req, res) => {
     //retrieve all entries if they have a the request date in its dates array
-    const venues = await Venue.find({ dates: req.params.date});
-    if(!venues)
+    const venues = await Venue.find({ dates: req.params.date });
+    if (!venues)
         return res.status(404).send('No venue in  ${req.paramas.date} was found');
     res.send(venues);
 });
 
-router.get('/name/:name', async(req, res) => {
+router.get('/name/:name', async (req, res) => {
     const venue = await Venue.find({ name: req.params.name });
-    if(!venue)
+    if (!venue)
         return res.status(404).send('The venue with the given name was not found.');
     res.send(venue);
 });
@@ -28,14 +30,14 @@ router.get('/name/:name', async(req, res) => {
 router.get('/:id', async (req, res) => {
     const venue = await Venue.findById(req.params.id);
 
-    if (!venue) 
+    if (!venue)
         return res.status(404).send('The genre with the given ID was not found.');
     res.send(venue);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authenticate.verifyUser, async (req, res) => {
     const { error } = validateVenue(req.body);
-    
+
     if (error) {
         var message = error.details[0];
         //if (message.search("fails to match the required pattern"))
@@ -54,7 +56,7 @@ router.post('/', async (req, res) => {
     res.send(venue);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticate.verifyUser, async (req, res) => {
     const { error } = validateVenue(req.body);
     if (error)
         return res.status(400).send(error.details[0].message);
@@ -73,7 +75,7 @@ router.put('/:id', async (req, res) => {
     res.send(venue);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticate.verifyUser, async (req, res) => {
     const venue = await Venue.findByIdAndRemove(req.params.id);
     if (!venue)
         return res.status(404).send('The Venue with the given ID was not found.');
