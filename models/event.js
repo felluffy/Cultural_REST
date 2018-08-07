@@ -13,8 +13,10 @@ const eventSchema = new mongoose.Schema({
         enum: ['General', 'Department', 'Extras']
     },
     eventName: {
-        tpye: String,
-        required: true
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 50
     },
     entry: {
         type: String,
@@ -82,11 +84,11 @@ const Event = mongoose.model('Event', eventSchema);
 function validateEvent(event) {
     const schema = {
         eventType: Joi.string().required(),
-        eventName: Joi.string().required(),
+        eventName: Joi.string().required().min(5).max(50),
         entry: Joi.string().required(),
         start: Joi.date().format('YYYY-MM-DD'),
         end: Joi.date().format('YYYY-MM-DD'),
-        organzierId: Joi.objectId().required(),
+        organizerId: Joi.objectId().required(),
         venueId: Joi.objectId().required()
     }
 
