@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const { Organizer, validateOrganizer } = require('../models/organizer');
+var authenticate = require('../authenticate');
 //endpoints
 router.get('/', async (req, res) => {
     const organizers = await Organizer.find().sort('name');
