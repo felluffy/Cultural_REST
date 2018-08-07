@@ -12,7 +12,17 @@ POST    : Create resource
 GET     : Get a resource or list of resources 
 DELETE  : To delete a resource
 </pre>
-# Organizers [/organizers]
+
+# Group Organizer
+
+**User attributes:**
+- id `(HexString)`    : unique identifier
+- name `(String)`     : name 
+- phone `(String)`    : phone number
+- email `(String)`    : email id
+- underRU `(Boolean)` : whether organizer is under RU 
+
+## Organizers Collection [/organizers]
 
 ### List All Organizers [GET /organizers/]
 
@@ -25,7 +35,7 @@ DELETE  : To delete a resource
                 "email": "xyz@example.com",
                 "phone": "01711111111"
                 "underRU": false
-            }
+            },
             
             {
                 "id": "ff85221551daca"
@@ -60,7 +70,7 @@ DELETE  : To delete a resource
 ### List Organizer by id [GET /organizers/{id}]
 Retrieve a single organizer by id
 + Parameters
-    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with
+    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with)
 
 + Response 200 (application/json)
 
@@ -75,7 +85,7 @@ Retrieve a single organizer by id
 ### Update an Organizer by ID [PUT /organizers/{id}]      
 Update an organizer under the collection with given id
 + Parameters
-    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with
+    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with)
 
 + Request (application/json) 
 
@@ -98,7 +108,7 @@ Update an organizer under the collection with given id
         
 ### Remove an Organizer [DELETE /{id}]
 + Parameters
-    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with
+    + id (required, HexString, `ab21421521baca` ... HexString `id`  of the organizer to perform action with)
     
 + Response 204
 
@@ -106,16 +116,428 @@ Update an organizer under the collection with given id
 Retrieve one or many entries with the given name under the collection
 
 + Parameters
-    + name (required, String, `John Doe` ... String `name`  of the organizer to perform action with
+    + name (required, String, `John Doe` ... String `name`  of the organizer to perform action with)
 
 + Response 200 (application/json)
         
         [
             {
-                "id": "1"
+                "id": "ab21421521baca",
                 "name": "John Doe",
                 "email": "xyz@example.com",
                 "phone": "01711111111"
                 "underRU": false
+            }
+        ]
+        
+# Group Venue
+
+**User attributes:**
+- id `(HexString)`  : unique identifier
+- name `(String)`   : name 
+- phone `(String)`  : phone number
+- email `(String)`  : email id
+- dates `([Date])`  : iso dates in which the venue is occupied
+
+## Venue Collection [/venues/]
+
+### List All Venues [GET /venues/]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "ab21cdf521baca"
+                "name": "Kazi Nazrul Auditorium",
+                "email": "xyz@example.com",
+                "phone": "01711111112"
+                "dates": [
+                    "2018-03-26T00:00:00.000Z",
+                    "2019-03-26T00:00:00.000Z"
+                ]
+            },
+            
+            {
+                "id": "ff85221551daca"
+                "name": "XXX Dept Auditorium",
+                "email": "abc@example.com",
+                "phone": "01922222222"
+                "dates": [
+                    "2018-04-15T00:00:00.000Z",
+                 ]
+            }
+        ]
+
+### Create a New Venue [POST /venues/]
+
++ Request (application/json)
+
+        {
+            "id": "baca23154abad",
+            "name": "Some Place",
+            "email": "aceg@example.com",
+            "phone": "01674174561",
+            "dates": []
+        }
+        
++ Response 201 (application/json)
+        
+        {
+            "id": "baca23154abad",
+            "name": "Some Place",
+            "email": "aceg@example.com",
+            "phone": "01674174561",
+            "dates": []
+        }
+        
+### List Venue by id [GET /venue/{id}]
+Retrieve a single venue by id
++ Parameters
+    + id (required, HexString, `ab21cdf521baca` ... HexString `id`  of the venue to perform action with)
+
++ Response 200 (application/json)
+
+        {
+            "id": "ab21cdf521baca"
+            "name": "Kazi Nazrul Auditorium",
+            "email": "xyz@example.com",
+            "phone": "01711111112"
+            "dates": [
+                "2018-03-26T00:00:00.000Z",
+                "2019-03-26T00:00:00.000Z"
+            ]
+        }
+        
+### Update an Venue by ID [PUT /venue/{id}]      
+Update a venue under the collection with given id
++ Parameters
+    + id (required, HexString, `ab21cdf521baca` ... HexString `id`  of the organizer to perform action with)
+
++ Request (application/json) 
+
+        {
+            "name": "Kazi Nazrul Auditorium",
+            "email": "xyz@example.com",
+            "phone": "01711111112"
+            "underRU": ture
+            "dates": [
+                "2018-04-18T00:00:00.000Z"
+            ]
+        }
+        
++ Response 201 (application/json)
+
+        {
+            "id": "ab21cdf521baca",
+            "name": "Kazi Nazrul Auditorium",
+            "email": "xyz@example.com",
+            "phone": "01711111112"
+            "dates": [
+                "2018-04-18T00:00:00.000Z",
+                "2018-03-26T00:00:00.000Z",
+                "2019-03-26T00:00:00.000Z"
+            ]
+        }
+        
+### Remove a Venue [DELETE /{id}]
++ Parameters
+    + id (required, HexString, `ab21cdf521baca` ... HexString `id`  of the organizer to perform action with)
+    
++ Response 204
+
+### List one or many Venue by name [GET /venue/{name}]
+Retrieve one or many entries with the given name under the collection
+
++ Parameters
+    + name (required, String, `Kazi Nazrul Auditorium` ... String `name`  of the organizer to perform action with)
+
++ Response 200 (application/json)
+        
+        [
+            {
+                "id": "ab21cdf521baca",
+                "name": "JKazi Nazrul Auditorium",
+                "email": "xyz@example.com",
+                "phone": "01711111111"
+                "dates": [
+                    "2018-03-26T00:00:00.000Z",
+                    "2019-03-26T00:00:00.000Z"
+                ]
+            }
+        ]        
+        
+
+# Group Event
+
+**User attributes:**
+- id `(HexString)`        : unique identifier
+- eventType `(String)`    : enum for General or Department or Extras
+- eventName `(String)`    : name
+- entry `(String)`        : enum for restricted or everyone
+- start `(Date)`          : starting time/date
+- end `(Date)`            : ending time/date 
+- organizer `(Organizer)` : organizer information
+- venue `(Venue)`         : venue information
+
+
+## Event Collection [/evnets/]
+
+### List All Events [GET /events/]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "5b688bb257c1d30ba4dd8701",
+                "eventType": "Extra",
+                "eventName": "some event",
+                "entry": "Everyone",
+                "start": "2018-06-26T10:00:00.000Z",
+                "end": "2018-06-26T13:00:00.000Z",
+                "organizer": {
+                    "id": "ab21421521baca",
+                    "name": "John Doe",
+                    "email": "xyz@example.com",
+                    "phone": "01711111111"
+                },
+                "venue": {
+                    "id": "ab21cdf521baca",
+                    "name": "Kazi Nazrul Auditorium",
+                    "email": "xyz@example.com",
+                    "phone": "01711111112"
+                }
+            }
+        ]
+        
+### Create a New Event [POST /events/]
+
++ Request (application/json)
+
+        {
+            "eventType": "General",
+            "eventName": "some other event",
+            "entry": "Everyone",
+            "start": "2018-08-15T12:00:00.000Z",
+            "end": "2018-08-15T17:00:00.000Z",
+            "organizerId": "ab21421521baca",
+            "venueId": "ab21cdf521baca"
+        }
+        
++ Response 201 (application/json)
+        
+        {
+            "eventType": "General",
+            "eventName": "some other event",
+            "entry": "Everyone",
+            "start": "2018-08-15T12:00:00.000Z",
+            "end": "2018-08-15T17:00:00.000Z",
+            "organizer": {
+                "id": "ab21421521baca",
+                "name": "John Doe",
+                "email": "xyz@example.com",
+                "phone": "01711111111"
+            },
+            "venue": {
+                "id": "ab21cdf521baca",
+                "name": "Kazi Nazrul Auditorium",
+                "email": "xyz@example.com",
+                "phone": "01711111112"
+            }
+            
+        }
+        
+### List Event by id [GET /events/{id}]
+
+Retrieve a single organizer by id
++ Parameters
+    + id (required, HexString, `5b688bb257c1d30ba4dd8701` ... HexString `id`  of the event to perform action with)
+
++ Response 200 (application/json)
+
+        {
+            "id": "5b688bb257c1d30ba4dd8701",
+            "eventType": "Extra",
+            "eventName": "some event",
+            "entry": "Everyone",
+            "start": "2018-06-26T10:00:00.000Z",
+            "end": "2018-06-26T13:00:00.000Z",
+            "organizer": {
+                "id": "ab21421521baca",
+                "name": "John Doe",
+                "email": "xyz@example.com",
+                "phone": "01711111111"
+            },
+            "venue": {
+                "id": "ab21cdf521baca",
+                "name": "Kazi Nazrul Auditorium",
+                "email": "xyz@example.com",
+                "phone": "01711111112"
+            }
+        }
+        
+### Update an event by ID [PUT /events/{id}]      
+Update an event under the collection with given id
++ Parameters
+    + id (required, HexString, `5b688bb257c1d30ba4dd8701` ... HexString `id`  of the event to perform action with)
+
++ Request (application/json) 
+
+        {
+            "eventType": "Department",
+            "eventName": "Some departmental event",
+            "entry": "Restricted",
+            "start": "2018-06-26T09:00:00.000Z",
+            "end": "2018-06-26T13:00:00.000Z",
+            "organizerId": "ab21421521baca",
+            "venueId": "ab21cdf521baca"
+        }
+        
++ Response 201 (application/json)
+
+        {
+            "id": "5b688bb257c1d30ba4dd8701",
+            "eventType": "Department",
+            "eventName": "Some departmental event",
+            "entry": "Restricted",
+            "start": "2018-06-26T09:00:00.000Z",
+            "end": "2018-06-26T13:00:00.000Z",
+            "organizer": {
+                "id": "ab21421521baca",
+                "name": "John Doe",
+                "email": "xyz@example.com",
+                "phone": "01711111111"
+            },
+            "venue": {
+                "id": "ab21cdf521baca",
+                "name": "Kazi Nazrul Auditorium",
+                "email": "xyz@example.com",
+                "phone": "01711111112"
+            }
+        }
+        
+### Remove an Organizer [DELETE /events/{id}]
++ Parameters
+    + id (required, HexString, `"id": "5b688bb257c1d30ba4dd8701"` ... HexString `id`  of the event to perform action with)
+    
++ Response 204
+
+### List one or many event by name [GET /events/name/{name}]
+Retrieve one or many entries with the given name under the collection
+
++ Parameters
+    + name (required, String, `some event` ... String `name`  of the event to perform action with)
+
++ Response 200 (application/json) 
+
+        [
+            {
+                "id": "5b688bb257c1d30ba4dd8701",
+                "eventType": "Extra",
+                "eventName": "some event",
+                "entry": "Everyone",
+                "start": "2018-06-26T10:00:00.000Z",
+                "end": "2018-06-26T13:00:00.000Z",
+                "organizer": {
+                    "id": "ab21421521baca",
+                    "name": "John Doe",
+                    "email": "xyz@example.com",
+                    "phone": "01711111111"
+                },
+                "venue": {
+                    "id": "ab21cdf521baca",
+                    "name": "Kazi Nazrul Auditorium",
+                    "email": "xyz@example.com",
+                    "phone": "01711111112"
+                }
+            }
+        ]
+
+### List one or many events under a date [GET /events/date/{date}]
+Retrieve one or many events with the given date under the collection
+
++ Parameters
+    + date (required, Date, `2018-06-26T10:00:00.000Z` ... Date `date` of the event to perform action with)
+    
++ Response 200 (application/json) 
+
+        [
+            {
+                "id": "5b688bb257c1d30ba4dd8701",
+                "eventType": "Extra",
+                "eventName": "some event",
+                "entry": "Everyone",
+                "start": "2018-06-26T10:00:00.000Z",
+                "end": "2018-06-26T13:00:00.000Z",
+                "organizer": {
+                    "id": "ab21421521baca",
+                    "name": "John Doe",
+                    "email": "xyz@example.com",
+                    "phone": "01711111111"
+                },
+                "venue": {
+                    "id": "ab21cdf521baca",
+                    "name": "Kazi Nazrul Auditorium",
+                    "email": "xyz@example.com",
+                    "phone": "01711111112"
+                }
+            }
+        ]
+
+### List events under a specific venues's name [GET /events/eventvenue/{eventvenue}] 
+
++ Parameters
+    + eventvenue(required, String, `Kazi Nazrul Auditorium` ... String `name` of the event venue to perform action with)
+    
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "5b688bb257c1d30ba4dd8701",
+                "eventType": "Extra",
+                "eventName": "some event",
+                "entry": "Everyone",
+                "start": "2018-06-26T10:00:00.000Z",
+                "end": "2018-06-26T13:00:00.000Z",
+                "organizer": {
+                    "id": "ab21421521baca",
+                    "name": "John Doe",
+                    "email": "xyz@example.com",
+                    "phone": "01711111111"
+                },
+                "venue": {
+                    "id": "ab21cdf521baca",
+                    "name": "Kazi Nazrul Auditorium",
+                    "email": "xyz@example.com",
+                    "phone": "01711111112"
+                }
+            }
+        ]
+        
+### List events under a specific organizers name [GET /eventorganizer/{eventorganizer}] 
++ Parameters
+    + eventorganizer(required, String, `John Doe` ... String `name` of the event organizer to perform action with)
+    
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "5b688bb257c1d30ba4dd8701",
+                "eventType": "Extra",
+                "eventName": "some event",
+                "entry": "Everyone",
+                "start": "2018-06-26T10:00:00.000Z",
+                "end": "2018-06-26T13:00:00.000Z",
+                "organizer": {
+                    "id": "ab21421521baca",
+                    "name": "John Doe",
+                    "email": "xyz@example.com",
+                    "phone": "01711111111"
+                },
+                "venue": {
+                    "id": "ab21cdf521baca",
+                    "name": "Kazi Nazrul Auditorium",
+                    "email": "xyz@example.com",
+                    "phone": "01711111112"
+                }
             }
         ]
