@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
     res.send(organizer);
 });
 
-router.post('/', async (req, res) => {
+router.post('/',authenticate.verifyUser , async (req, res) => {
     const { error } = validateOrganizer(req.body);
     if (error) {
         var message = error.details[0].message;
