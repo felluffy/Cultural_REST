@@ -44,5 +44,22 @@ router.post('/',authenticate.verifyUser , async (req, res) => {
     res.send(organizer);
 });
 
+router.put('/:id', authenticate.verifyUser ,async (req, res) => {
+    const { error } = validateOrganizer(req.body);
+    if (error)
+        return res.status(400).send(error.details[0].message);
+
+    const organizer = await Organizer.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body, email,
+        phone: req.body.phone
+    }, { new: true }); // to get the updated object 
+
+    if (!organizer)
+        return res.status(404).send('The organizer with the given ID was not found.');
+
+    res.send(organizer);
+});
+
 
 module.exports = router;
