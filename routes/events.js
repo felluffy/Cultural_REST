@@ -89,5 +89,52 @@ router.post('/', async (req, res) => {
     res.send(event);
 });
 
+router.put('/:id', async (req, res) => {
+    const { error } = validateEvent(req.body);
+    if (error)
+        return res.status(400).send(error.details[0].message);
+
+    const venue = await Venue.findById(req.body.venueId)
+    if (!venue)
+        return res.status(400).send('Invalid venue or venue not in database');
+
+    const organizer = await Organizer.findById(req.body.organizerId);
+    if (!organizer)
+        return res.status(400).send('Invalid organzier or not in database');
+
+    const event = await Event.findByIdAndUpdate(req.params.id, {
+        eventType: req.body.eventType,
+        eventName: req.body.eventName,
+        entry: req.body.entry,
+        start: req.body.start,
+        end: req.body.end,
+        organzier: {
+            _id: oragnizer._id,
+            name: organizer.name,
+            email: organizer.email,
+            phone: organzier.phone
+        },
+        venue: {
+            _id: venue._id,
+            name: venue.name,
+            email: venue.email,
+            phone: venue.phone
+        }
+    }, { new: true }); // to get the updated object 
+    //venue.dates.push()
+
+    if (!event)
+        return res.status(404).send('The Event with the given ID was not found.');
+
+    res.send(event);
+});
+
+router.delete('/:id', async (req, res) => {
+    const event = await Event.findByIdAndRemove(req.params.id);
+    if (!event)
+        return res.status(404).send('The Event with the given ID was not found.');
+
+    res.send(event);
+});
 
 module.exports = router;
