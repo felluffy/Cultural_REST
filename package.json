@@ -13,6 +13,7 @@
   "author": "Joy, Maria, Nasif, Shuvo",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "email-validator": "^2.0.4",
     "express": "^4.16.3",
     "google-libphonenumber": "^3.1.11",
